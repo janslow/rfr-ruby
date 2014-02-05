@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'rfr'
+
+def invalid_use msg
+  puts "Usage: main.rb [-v] [-y [output_filepath]] filepath"
+  puts msg if msg
+  abort
+end
+
+options = {}
+while ARGV.length > 1
+  flags = ARGV.shift
+  unless flags[/^-/]
+    invalid_use "Unrecognised argument '#{flags}'"
+  end
+  
+  if flags[/s/]
+    options[:output_yaml] = true
+    if ARGV.length > 1
+      options[:output_path] = ARGV.shift
+    end
+  end
+  
+  options[:verbose] = true if flags[/v/]
+  options[:input_yaml] = true if flags[/y/]
+  options[:filter_rfr] = true if flags[/r/]
+end
+unless ARGV.length > 0
+  invalid_use "No filepath provided"
+end
+options[:input_path] = ARGV.shift
+
+options[:input_yaml] = true if options[:input_path][/\.yaml$/]
+
+reader = RFR::Reader.new options
+reader.print_messages
