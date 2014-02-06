@@ -14,11 +14,7 @@ module RFR::Parser
       when :select_channel
         parse_select_channel_command data
       when :hid_event
-        if is_console
-          RFR::Commands::UnknownCommand.new type, data
-        else
-          HidCommandParser::parse data
-        end
+        HidCommandParser::parse is_console, data
       else
         RFR::Commands::UnknownCommand.new type, data
       end
