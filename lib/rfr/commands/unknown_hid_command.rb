@@ -9,7 +9,7 @@ module RFR::Commands
 
     def to_s
       params_s = @params.map(&:chr).join.dump
-      "UNKNOWN EVENT #{@event_type} #{@params.to_s}/#{params_s}"
+      "UNKNOWN EVENT #{@event_type} #{@params.to_s}/#{params_s}".red
     end
   end
 end

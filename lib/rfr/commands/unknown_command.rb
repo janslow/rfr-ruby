@@ -9,7 +9,7 @@ module RFR::Commands
 
     def to_s
       data_s = @data.map(&:chr).join.gsub(/[^[:print:]]/i, '_')
-      "UNKNOWN: #{@type}: #{@data.to_s}/#{data_s}"
+      "UNKNOWN: #{@type}: #{@data.to_s}/#{data_s}".red
     end
   end
 end

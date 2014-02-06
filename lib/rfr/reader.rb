@@ -36,7 +36,7 @@ module RFR
       else
         return if @options[:filter_rfr] && message.info[:src_friendly] != "rfr"
         format_string = "%-4s\t%9.5f\t"
-        pretty_src = sprintf format_string, message.info[:src_friendly], message.info[:time]
+        pretty_src = sprintf format_string, message.info[:src_friendly].bold, message.info[:time]
         
         message.commands.each do |command|
           puts pretty_src + command.to_s
